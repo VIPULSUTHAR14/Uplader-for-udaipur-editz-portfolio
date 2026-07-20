@@ -8,22 +8,23 @@ import { useEffect, useState } from 'react';
 
 export default function Navigation() {
   const pathname = usePathname();
-  const {status} = useSession()
-  const [LoginStatus,SetLoginStatus] = useState(false)
+  const { status } = useSession()
+  const [LoginStatus, SetLoginStatus] = useState(false)
 
-  useEffect(()=>{
-    if(status==="authenticated"){
+  useEffect(() => {
+    if (status === "authenticated") {
       SetLoginStatus(true)
-    }else{
+    } else {
       SetLoginStatus(false)
     }
-  },[status])
+  }, [status])
 
 
 
   const navItems = [
-    { href: '/', label: 'Upload Project', icon: '📤' },
-    { href: '/projects', label: 'View Projects', icon: '📋' },
+    { href: '/', label: 'Upload Main', icon: '✨' },
+    { href: '/main-projects', label: 'Main Projects', icon: '🔥' },
+    { href: '/messages', label: 'Messages', icon: '💬' },
   ];
 
   return (
@@ -38,25 +39,24 @@ export default function Navigation() {
               <span className="text-xl font-semibold text-foreground">Project Manager</span>
             </Link>
           </div>
-          
+
           <div className="flex items-center space-x-8">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={LoginStatus? `flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  pathname === item.href
+                className={LoginStatus ? `flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${pathname === item.href
                     ? 'bg-primary text-primary-foreground'
                     : 'text-muted-foreground hover:text-foreground hover:bg-accent'
-                }` :"hidden"}
+                  }` : "hidden"}
               >
                 <span>{item.icon}</span>
                 <span>{item.label}</span>
               </Link>
             ))}
           </div>
-          <div className={LoginStatus? "flex items-center":"hidden"}>
-            <button type='button' onClick={()=>{
+          <div className={LoginStatus ? "flex items-center" : "hidden"}>
+            <button type='button' onClick={() => {
               signOut()
             }} >SignOut</button>
           </div>

@@ -21,7 +21,7 @@ export async function DELETE(
 
     const client: MongoClient = await clientPromise;
     const db: Db = client.db(database);
-    const collection: Collection = db.collection("PROJECTS");
+    const collection: Collection = db.collection("MainProject");
 
     // Convert string ID to ObjectId
     const objectId = new ObjectId(id);
@@ -31,20 +31,20 @@ export async function DELETE(
 
     if (result.deletedCount === 0) {
       return NextResponse.json(
-        { error: "Project not found" },
+        { error: "Main project not found" },
         { status: 404 }
       );
     }
 
     return NextResponse.json({
       success: true,
-      message: "Project deleted successfully"
+      message: "Main project deleted successfully"
     });
 
   } catch (error) {
-    console.error("Error deleting project:", error);
+    console.error("Error deleting main project:", error);
     return NextResponse.json(
-      { error: "Failed to delete project" },
+      { error: "Failed to delete main project" },
       { status: 500 }
     );
   }
